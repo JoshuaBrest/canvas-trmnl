@@ -102,7 +102,8 @@ const fetchConsumerData: RouteData<
 > = {
     requestSchema: FetchConsumerDataRequestSchema,
     procedure: async (data) => {
-        if (!(await verifyTrmnlToken(data.authToken))) {
+        const token = await verifyTrmnlToken(data.authToken);
+        if (!token) {
             // Verify the jwt token.
             logger.info(
                 'Received invalid token while fetching consumer data: %s.',
@@ -111,6 +112,18 @@ const fetchConsumerData: RouteData<
             return {
                 type: 'error',
                 error: 'authenticationError',
+            };
+        }
+
+        if (token.payload.sub?.toLowerCase() !== data.trmnlId.toLowerCase()) {
+            // Verify the jwt token matches the trmnlId.
+            logger.info(
+                'Received token with mismatched trmnlId while fetching consumer data: %s.',
+                data.trmnlId,
+            );
+            return {
+                type: 'error',
+                error: 'authorizationError',
             };
         }
 
@@ -171,7 +184,8 @@ const updateCanvasData: RouteData<
 > = {
     requestSchema: UpdateCanvasDataRequestSchema,
     procedure: async (data) => {
-        if (!(await verifyTrmnlToken(data.authToken))) {
+        const token = await verifyTrmnlToken(data.authToken);
+        if (!token) {
             // Verify the jwt token.
             logger.info(
                 'Received invalid token while updating canvas data: %s.',
@@ -180,6 +194,18 @@ const updateCanvasData: RouteData<
             return {
                 type: 'error',
                 error: 'authenticationError',
+            };
+        }
+
+        if (token.payload.sub?.toLowerCase() !== data.trmnlId.toLowerCase()) {
+            // Verify the jwt token matches the trmnlId.
+            logger.info(
+                'Received token with mismatched trmnlId while updating canvas data: %s.',
+                data.trmnlId,
+            );
+            return {
+                type: 'error',
+                error: 'authorizationError',
             };
         }
 

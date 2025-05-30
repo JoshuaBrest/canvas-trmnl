@@ -32,6 +32,7 @@ export const FetchConsumerDataResponseSchema = z.union([
         type: z.literal('error'),
         error: z.enum([
             'authenticationError',
+            'authorizationError',
             'consumerNotFoundError',
             'databaseQueryError',
         ]),
@@ -64,6 +65,7 @@ export const UpdateCanvasDataResponseSchema = z.union([
         type: z.literal('error'),
         error: z.enum([
             'authenticationError',
+            'authorizationError',
             'invalidUrlError',
             'consumerNotFoundError',
             'databaseQueryError',
