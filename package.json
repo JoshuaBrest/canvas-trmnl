@@ -50,7 +50,7 @@
         "@swc/core": "^1.11.16",
         "@tailwindcss/postcss": "^4.1.1",
         "@types/pg": "^8.11.11",
-        "@types/react": "^19.1.0",
+        "@types/react": "^19.1.6",
         "@types/react-dom": "^19.1.1",
         "concurrently": "^9.1.2",
         "drizzle-kit": "^0.30.6",
